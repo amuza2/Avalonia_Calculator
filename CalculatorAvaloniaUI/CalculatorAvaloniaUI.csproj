@@ -7,26 +7,18 @@
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 
-        <!-- Only enable Native AOT when building on the same OS -->
-        <PublishAot Condition="'$(RuntimeIdentifier)' == 'linux-x64' AND $([MSBuild]::IsOSPlatform('Linux'))">true</PublishAot>
-        <PublishAot Condition="'$(RuntimeIdentifier)' == 'win-x64' AND $([MSBuild]::IsOSPlatform('Windows'))">true</PublishAot>
-
-        <!-- Fallback to self-contained with trimming for cross-compilation -->
-        <SelfContained Condition="'$(PublishAot)' != 'true'">true</SelfContained>
-        <PublishSingleFile Condition="'$(PublishAot)' != 'true'">true</PublishSingleFile>
-        <PublishTrimmed Condition="'$(PublishAot)' != 'true'">true</PublishTrimmed>
-
-        <!-- Trimming settings that work for both AOT and regular trimming -->
-        <TrimMode>link</TrimMode>
-        <InvariantGlobalization>true</InvariantGlobalization>
+<!--    this part is from Native AOT doc-->
+<!--    https://docs.avaloniaui.net/docs/deployment/native-aot-->
+        <PublishAot>true</PublishAot>
         <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
+        <TrimMode>link</TrimMode>
+        
     </PropertyGroup>
 
     <ItemGroup>
         <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
-        <TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
-        <TrimmerRootAssembly Include="Avalonia.Controls" />
+        <TrimmerRootAssembly Include="Avalonia.Themes.Fluent"/>
     </ItemGroup>
 
     <ItemGroup>
