@@ -1,0 +1,307 @@
+<Window
+    Background="#1E1E1E"
+    Icon="/Assets/avalonia-logo.ico"
+    MaxHeight="550"
+    MaxWidth="350"
+    MinHeight="550"
+    MinWidth="350"
+    Title="CalculatorAvaloniaUI"
+    WindowStartupLocation="CenterScreen"
+    d:DesignHeight="550"
+    d:DesignWidth="350"
+    mc:Ignorable="d"
+    x:Class="CalculatorAvaloniaUI.Views.MainWindow"
+    x:CompileBindings="True"
+    x:DataType="vm:MainWindowViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:CalculatorAvaloniaUI.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Window.KeyBindings>
+        <KeyBinding Command="{Binding ClearCommand}" Gesture="Escape" />
+        <KeyBinding Command="{Binding EqualsCommand}" Gesture="Enter" />
+        <KeyBinding Command="{Binding BackspaceCommand}" Gesture="Back" />
+        <KeyBinding
+            Command="{Binding OperationCommand}"
+            CommandParameter="+"
+            Gesture="OemPlus" />
+        <KeyBinding
+            Command="{Binding OperationCommand}"
+            CommandParameter="-"
+            Gesture="OemMinus" />
+        <KeyBinding
+            Command="{Binding OperationCommand}"
+            CommandParameter="×"
+            Gesture="Multiply" />
+        <KeyBinding
+            Command="{Binding OperationCommand}"
+            CommandParameter="÷"
+            Gesture="Divide" />
+
+        <KeyBinding Command="{Binding DecimalCommand}" Gesture="OemPeriod" />
+
+        <KeyBinding
+            Command="{Binding NumberCommand}"
+            CommandParameter="0"
+            Gesture="NumPad0" />
+        <KeyBinding
+            Command="{Binding NumberCommand}"
+            CommandParameter="1"
+            Gesture="NumPad1" />
+        <KeyBinding
+            Command="{Binding NumberCommand}"
+            CommandParameter="2"
+            Gesture="NumPad2" />
+        <KeyBinding
+            Command="{Binding NumberCommand}"
+            CommandParameter="3"
+            Gesture="NumPad3" />
+        <KeyBinding
+            Command="{Binding NumberCommand}"
+            CommandParameter="4"
+            Gesture="NumPad4" />
+        <KeyBinding
+            Command="{Binding NumberCommand}"
+            CommandParameter="5"
+            Gesture="NumPad5" />
+        <KeyBinding
+            Command="{Binding NumberCommand}"
+            CommandParameter="6"
+            Gesture="NumPad6" />
+        <KeyBinding
+            Command="{Binding NumberCommand}"
+            CommandParameter="7"
+            Gesture="NumPad7" />
+        <KeyBinding
+            Command="{Binding NumberCommand}"
+            CommandParameter="8"
+            Gesture="NumPad8" />
+        <KeyBinding
+            Command="{Binding NumberCommand}"
+            CommandParameter="9"
+            Gesture="NumPad9" />
+    </Window.KeyBindings>
+
+    <Grid Margin="15" RowDefinitions="160,*">
+
+        <!--  Display Section  -->
+        <Border
+            Background="#2B2B2B"
+            BoxShadow="0 4 20 0 #00000040"
+            CornerRadius="12"
+            Grid.Row="0"
+            Padding="20">
+
+            <Grid RowDefinitions="Auto,Auto,*">
+                <!--  Memory Indicator  -->
+                <TextBlock
+                    FontSize="12"
+                    Foreground="#888"
+                    Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    IsVisible="{Binding HasMemoryValue}"
+                    Text="{Binding MemoryIndicator}" />
+
+                <!--  Previous Operation  -->
+                <TextBlock
+                    FontSize="16"
+                    Foreground="#999"
+                    Grid.Row="1"
+                    HorizontalAlignment="Right"
+                    Margin="0,5"
+                    Text="{Binding PreviousOperation}" />
+
+                <!--  Current Display  -->
+                <Viewbox
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom">
+                    <TextBlock
+                        FontSize="48"
+                        FontWeight="Light"
+                        Foreground="White"
+                        MaxWidth="300"
+                        Text="{Binding DisplayText}" />
+                </Viewbox>
+            </Grid>
+        </Border>
+
+        <!--  Button Grid  -->
+        <Grid
+            ColumnDefinitions="*,*,*,*"
+            Grid.Row="1"
+            Margin="0,20,0,0"
+            RowDefinitions="*,*,*,*,*,*">
+
+            <!--  Memory Functions Row  -->
+            <Button
+                Classes="memory"
+                Command="{Binding MemoryClearCommand}"
+                Content="MC"
+                Grid.Column="0"
+                Grid.Row="0" />
+            <Button
+                Classes="memory"
+                Command="{Binding MemoryRecallCommand}"
+                Content="MR"
+                Grid.Column="1"
+                Grid.Row="0" />
+            <Button
+                Classes="memory"
+                Command="{Binding MemoryAddCommand}"
+                Content="M+"
+                Grid.Column="2"
+                Grid.Row="0" />
+            <Button
+                Classes="memory"
+                Command="{Binding MemorySubtractCommand}"
+                Content="M-"
+                Grid.Column="3"
+                Grid.Row="0" />
+
+            <!--  Function Row  -->
+            <Button
+                Classes="function"
+                Command="{Binding ClearCommand}"
+                Content="C"
+                Grid.Column="0"
+                Grid.Row="1" />
+            <Button
+                Classes="function"
+                Command="{Binding ClearEntryCommand}"
+                Content="CE"
+                Grid.Column="1"
+                Grid.Row="1" />
+            <Button
+                Classes="function"
+                Command="{Binding BackspaceCommand}"
+                Content="⌫"
+                Grid.Column="2"
+                Grid.Row="1" />
+            <Button
+                Classes="operator"
+                Command="{Binding OperationCommand}"
+                CommandParameter="÷"
+                Content="÷"
+                Grid.Column="3"
+                Grid.Row="1" />
+
+            <!--  Number Rows  -->
+            <Button
+                Classes="number"
+                Command="{Binding NumberCommand}"
+                CommandParameter="7"
+                Content="7"
+                Grid.Column="0"
+                Grid.Row="2" />
+            <Button
+                Classes="number"
+                Command="{Binding NumberCommand}"
+                CommandParameter="8"
+                Content="8"
+                Grid.Column="1"
+                Grid.Row="2" />
+            <Button
+                Classes="number"
+                Command="{Binding NumberCommand}"
+                CommandParameter="9"
+                Content="9"
+                Grid.Column="2"
+                Grid.Row="2" />
+            <Button
+                Classes="operator"
+                Command="{Binding OperationCommand}"
+                CommandParameter="×"
+                Content="×"
+                Grid.Column="3"
+                Grid.Row="2" />
+
+            <Button
+                Classes="number"
+                Command="{Binding NumberCommand}"
+                CommandParameter="4"
+                Content="4"
+                Grid.Column="0"
+                Grid.Row="3" />
+            <Button
+                Classes="number"
+                Command="{Binding NumberCommand}"
+                CommandParameter="5"
+                Content="5"
+                Grid.Column="1"
+                Grid.Row="3" />
+            <Button
+                Classes="number"
+                Command="{Binding NumberCommand}"
+                CommandParameter="6"
+                Content="6"
+                Grid.Column="2"
+                Grid.Row="3" />
+            <Button
+                Classes="operator"
+                Command="{Binding OperationCommand}"
+                CommandParameter="-"
+                Content="-"
+                Grid.Column="3"
+                Grid.Row="3" />
+
+            <Button
+                Classes="number"
+                Command="{Binding NumberCommand}"
+                CommandParameter="1"
+                Content="1"
+                Grid.Column="0"
+                Grid.Row="4" />
+            <Button
+                Classes="number"
+                Command="{Binding NumberCommand}"
+                CommandParameter="2"
+                Content="2"
+                Grid.Column="1"
+                Grid.Row="4" />
+            <Button
+                Classes="number"
+                Command="{Binding NumberCommand}"
+                CommandParameter="3"
+                Content="3"
+                Grid.Column="2"
+                Grid.Row="4" />
+            <Button
+                Classes="operator"
+                Command="{Binding OperationCommand}"
+                CommandParameter="+"
+                Content="+"
+                Grid.Column="3"
+                Grid.Row="4" />
+
+            <Button
+                Classes="number"
+                Command="{Binding NumberCommand}"
+                CommandParameter="0"
+                Content="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="5"
+                Width="130" />
+            <Button
+                Classes="number"
+                Command="{Binding DecimalCommand}"
+                Content="."
+                Grid.Column="2"
+                Grid.Row="5" />
+            <Button
+                Classes="equals"
+                Command="{Binding EqualsCommand}"
+                Content="="
+                Grid.Column="3"
+                Grid.Row="5" />
+        </Grid>
+    </Grid>
+
+</Window>

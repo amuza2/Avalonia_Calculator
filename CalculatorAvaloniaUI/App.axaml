@@ -1,0 +1,107 @@
+<Application
+    RequestedThemeVariant="Dark"
+    x:Class="CalculatorAvaloniaUI.App"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:local="using:CalculatorAvaloniaUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options.  -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+
+        <!--  Base Button Style  -->
+        <Style Selector="Button">
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="CornerRadius" Value="30" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style Selector="Button:pointerover">
+            <Setter Property="RenderTransform" Value="scale(1.05)" />
+        </Style>
+
+        <Style Selector="Button:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.95)" />
+        </Style>
+
+        <!--  Number Button Style  -->
+        <Style Selector="Button.number">
+            <Setter Property="Background" Value="#333333" />
+            <Setter Property="Foreground" Value="White" />
+
+        </Style>
+
+        <Style Selector="Button.number:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#404040" />
+            <Setter Property="Foreground" Value="White" />
+
+        </Style>
+
+        <!--  Zero Button (wider)  -->
+        <Style Selector="Button.zero">
+            <Setter Property="Padding" Value="25,0" />
+        </Style>
+
+        <!--  Operator Button Style  -->
+        <Style Selector="Button.operator">
+            <Setter Property="Background" Value="#FF9500" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+
+        <Style Selector="Button.operator:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#FFB143" />
+            <Setter Property="Foreground" Value="White" />
+
+        </Style>
+
+        <!--  Function Button Style  -->
+        <Style Selector="Button.function">
+            <Setter Property="Background" Value="#A6A6A6" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style Selector="Button.function:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#BFBFBF" />
+            <Setter Property="Foreground" Value="Black" />
+
+        </Style>
+
+        <!--  Memory Button Style  -->
+        <Style Selector="Button.memory">
+            <Setter Property="Background" Value="#1E3A8A" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style Selector="Button.memory:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#3B82F6" />
+            <Setter Property="Foreground" Value="White" />
+
+        </Style>
+
+        <!--  Equals Button Style  -->
+        <Style Selector="Button.equals">
+            <Setter Property="Background" Value="#FF9500" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style Selector="Button.equals:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#FFB143" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+    </Application.Styles>
+</Application>
