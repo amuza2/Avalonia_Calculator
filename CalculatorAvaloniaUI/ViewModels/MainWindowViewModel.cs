@@ -1,12 +1,23 @@
 ﻿using System;
-using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CalculatorAvaloniaUI.Services;
 
 namespace CalculatorAvaloniaUI.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
+    private readonly ICalculatorService _calculatorService;
+
+    public MainWindowViewModel() : this(new CalculatorService())
+    {
+    }
+
+    public MainWindowViewModel(ICalculatorService calculatorService)
+    {
+        _calculatorService = calculatorService;
+    }
+
     [ObservableProperty]
     private string _displayText = "0";
     
@@ -87,7 +98,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
 
         _currentOperation = operation;
-        PreviousOperation = $"{FormatNumber(_previousValue)} {operation}";
+        PreviousOperation = $"{_calculatorService.FormatNumber(_previousValue)} {operation}";
         _isNewEntry = true;
         _lastActionWasEquals = false;
     }
@@ -104,17 +115,10 @@ public partial class MainWindowViewModel : ViewModelBase
 
         try
         {
-            var result = _currentOperation switch
-            {
-                "+" => _previousValue + _currentValue,
-                "-" => _previousValue - _currentValue,
-                "×" => _previousValue * _currentValue,
-                "÷" => _currentValue != 0 ? _previousValue / _currentValue : throw new DivideByZeroException(),
-                _ => _currentValue
-            };
+            var result = _calculatorService.Calculate(_previousValue, _currentValue, _currentOperation);
 
-            DisplayText = FormatNumber(result);
-            PreviousOperation = $"{FormatNumber(_previousValue)} {_currentOperation} {FormatNumber(_currentValue)} =";
+            DisplayText = _calculatorService.FormatNumber(result);
+            PreviousOperation = $"{_calculatorService.FormatNumber(_previousValue)} {_currentOperation} {_calculatorService.FormatNumber(_currentValue)} =";
         }
         catch (DivideByZeroException)
         {
@@ -184,7 +188,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void MemoryRecall()
     {
-        DisplayText = FormatNumber(_memoryValue);
+        DisplayText = _calculatorService.FormatNumber(_memoryValue);
         _isNewEntry = true;
         _hasDecimalPoint = DisplayText.Contains(".");
     }
@@ -213,31 +217,5 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         HasMemoryValue = _memoryValue != 0;
         MemoryIndicator = HasMemoryValue ? "M" : "";
-    }
-
-    private static string FormatNumber(double number)
-    {
-        // Handle special cases
-        if (double.IsNaN(number) || double.IsInfinity(number))
-            return "Error";
-
-        // Format with appropriate decimal places
-        if (Math.Abs(number) < 1e-10)
-            return "0";
-
-        // For very large or very small numbers, use scientific notation
-        if (Math.Abs(number) >= 1e15 || (Math.Abs(number) < 1e-4 && number != 0))
-            return number.ToString("E2", CultureInfo.InvariantCulture);
-
-        // For normal numbers, remove unnecessary decimal places
-        string formatted = number.ToString("0.##########", CultureInfo.InvariantCulture);
-        
-        // Limit display length
-        if (formatted.Length > 15)
-        {
-            formatted = number.ToString("E2", CultureInfo.InvariantCulture);
-        }
-
-        return formatted;
     }
 }
