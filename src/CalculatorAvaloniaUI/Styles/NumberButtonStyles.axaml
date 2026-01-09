@@ -1,0 +1,20 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  Number Button Style  -->
+    <Style Selector="Button.number">
+        <Setter Property="Background" Value="#333333" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="Button.number:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#404040" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <!--  Zero Button (wider)  -->
+    <Style Selector="Button.zero">
+        <Setter Property="Padding" Value="25,0" />
+    </Style>
+
+</Styles>

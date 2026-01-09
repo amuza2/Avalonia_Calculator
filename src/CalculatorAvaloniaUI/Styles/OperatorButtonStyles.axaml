@@ -1,0 +1,29 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  Operator Button Style  -->
+    <Style Selector="Button.operator">
+        <Setter Property="Background" Value="#FF9500" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="24" />
+    </Style>
+
+    <Style Selector="Button.operator:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#FFB143" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <!--  Equals Button Style  -->
+    <Style Selector="Button.equals">
+        <Setter Property="Background" Value="#FF9500" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style Selector="Button.equals:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#FFB143" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+</Styles>
