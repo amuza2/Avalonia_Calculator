@@ -1,11 +1,10 @@
 <Window
     Background="#1E1E1E"
+    CanResize="False"
+    Height="550"
     Icon="/Assets/icons8-calculator.png"
-    MaxHeight="550"
-    MaxWidth="350"
-    MinHeight="550"
-    MinWidth="350"
     Title="CalculatorAvaloniaUI"
+    Width="350"
     WindowStartupLocation="CenterScreen"
     d:DesignHeight="550"
     d:DesignWidth="350"
@@ -121,8 +120,10 @@
                 <Viewbox
                     Grid.Row="2"
                     HorizontalAlignment="Right"
+                    MaxHeight="60"
                     VerticalAlignment="Bottom">
                     <TextBlock
+                        Classes.error="{Binding HasError}"
                         FontSize="48"
                         FontWeight="Light"
                         Foreground="White"

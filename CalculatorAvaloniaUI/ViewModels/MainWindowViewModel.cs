@@ -30,6 +30,9 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private bool _hasMemoryValue = false;
     
+    [ObservableProperty]
+    private bool _hasError = false;
+    
     private double _currentValue = 0;
     private double _previousValue = 0;
     private double _memoryValue = 0;
@@ -119,16 +122,19 @@ public partial class MainWindowViewModel : ViewModelBase
 
             DisplayText = _calculatorService.FormatNumber(result);
             PreviousOperation = $"{_calculatorService.FormatNumber(_previousValue)} {_currentOperation} {_calculatorService.FormatNumber(_currentValue)} =";
+            HasError = false;
         }
         catch (DivideByZeroException)
         {
-            DisplayText = "Cannot divide by zero";
-            PreviousOperation = "";
+            DisplayText = "Error";
+            PreviousOperation = "Cannot divide by zero";
+            HasError = true;
         }
         catch (OverflowException)
         {
-            DisplayText = "Overflow";
-            PreviousOperation = "";
+            DisplayText = "Error";
+            PreviousOperation = "Overflow";
+            HasError = true;
         }
 
         _currentOperation = "";
@@ -147,6 +153,7 @@ public partial class MainWindowViewModel : ViewModelBase
         _isNewEntry = true;
         _hasDecimalPoint = false;
         _lastActionWasEquals = false;
+        HasError = false;
     }
 
     [RelayCommand]

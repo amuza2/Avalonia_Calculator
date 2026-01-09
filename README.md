@@ -1,6 +1,6 @@
 # Avalonia UI Calculator
 
-![Avalonia](https://img.shields.io/badge/Avalonia-UI-blue)  ![MVVM](https://img.shields.io/badge/MVVM-Community_Toolkit-green)  ![MVVM](https://img.shields.io/badge/MVVM-Community_Toolkit-green)  ![Cross-Platform](https://img.shields.io/badge/Cross--Platform-orange)
+![Avalonia](https://img.shields.io/badge/Avalonia-UI-blue)  ![MVVM](https://img.shields.io/badge/MVVM-Community_Toolkit-green)  ![Cross-Platform](https://img.shields.io/badge/Cross--Platform-orange)
 
 A simple, cross-platform calculator built with [Avalonia UI](https://avaloniaui.net/) and the [Community Toolkit MVVM](https://github.com/CommunityToolkit/dotnet) for managing the application's architecture. This project demonstrates how to create a modern, responsive calculator application with Avalonia's powerful UI capabilities and MVVM pattern.
 
@@ -29,7 +29,7 @@ A simple, cross-platform calculator built with [Avalonia UI](https://avaloniaui.
 
 ### Prerequisites
 
-- [.NET SDK](https://dotnet.microsoft.com/download) (9.0 or later)
+- [.NET SDK](https://dotnet.microsoft.com/download) (10.0 or later)
 
 ### Clone the Repository
 

@@ -103,5 +103,10 @@
             <Setter Property="Background" Value="#FFB143" />
             <Setter Property="Foreground" Value="White" />
         </Style>
+
+        <!--  Error Text Style  -->
+        <Style Selector="TextBlock.error">
+            <Setter Property="Foreground" Value="#FF5555" />
+        </Style>
     </Application.Styles>
 </Application>
