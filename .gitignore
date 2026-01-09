@@ -3,3 +3,17 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+.idea/
+*.DotSettings.user
+
+# Build and publish output
+publish/
+*.AppImage
+appimagetool
+appimagetool-*.AppImage
+ProductivityCake.AppDir/usr/
+squashfs-root/
+
+# Debug symbols
+*.dbg
+*.pdb
