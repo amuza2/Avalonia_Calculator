@@ -1,47 +1,40 @@
-# Avalonia UI Calculator
+# Avalonia Calculator
 
-![Avalonia](https://img.shields.io/badge/Avalonia-UI-blue)  ![MVVM](https://img.shields.io/badge/MVVM-Community_Toolkit-green)  ![Cross-Platform](https://img.shields.io/badge/Cross--Platform-orange)
+![Avalonia](https://img.shields.io/badge/Avalonia-UI-blue) ![MVVM](https://img.shields.io/badge/MVVM-Community_Toolkit-green) ![.NET](https://img.shields.io/badge/.NET-10.0-purple) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-A simple, cross-platform calculator built with [Avalonia UI](https://avaloniaui.net/) and the [Community Toolkit MVVM](https://github.com/CommunityToolkit/dotnet) for managing the application's architecture. This project demonstrates how to create a modern, responsive calculator application with Avalonia's powerful UI capabilities and MVVM pattern.
+A simple, cross-platform calculator built with Avalonia UI.
+
+<img width="350" alt="Calculator Screenshot" src="https://github.com/user-attachments/assets/cf1da2e3-c093-45dd-89fa-1230c5329fc7" />
 
 ## Features
 
-- Basic arithmetic operations (Addition, Subtraction, Multiplication, Division)
-- Clear and backspace functionalities
-- Responsive design across multiple platforms
-- Fully MVVM structured code
+- Basic arithmetic (+, -, ×, ÷)
+- Memory functions (MC, MR, M+, M-)
+- Keyboard support
+- Cross-platform (Linux, Windows, macOS)
 
-  ## Screenshots
-
-<img width="361" height="589" alt="image" src="https://github.com/user-attachments/assets/cf1da2e3-c093-45dd-89fa-1230c5329fc7" />
-
-<img width="361" height="589" alt="image" src="https://github.com/user-attachments/assets/8a06a3d5-5900-42ee-91ca-84b6b55f50bc" />
-
-
-## Technologies Used
-
-- [Avalonia UI](https://avaloniaui.net/) - Cross-platform UI framework
-- [Community Toolkit MVVM](https://github.com/CommunityToolkit/dotnet) - MVVM toolkit for .NET
-- C#
-- XAML
-
-## Getting Started
-
-### Prerequisites
-
-- [.NET SDK](https://dotnet.microsoft.com/download) (10.0 or later)
-
-### Clone the Repository
+## Quick Start
 
 ```bash
-git clone https://github.com/your-username/Avalonia_Calculator.git
+git clone https://github.com/amuza2/Avalonia_Calculator.git
 cd Avalonia_Calculator
+dotnet run --project src/CalculatorAvaloniaUI
 ```
 
+## Build & Test
 
-## Contributions Section Explanation:
-- **Contributions are welcome!**: This encourages people to help improve the project by submitting issues, pull requests, or new features.
-- **How to Contribute**: Clear instructions on how others can fork, branch, and submit changes.
+```bash
+dotnet build
+dotnet test
+```
 
-Feel free to tweak any details depending on your exact needs! Let me know if you want further edits or additions.
+## Publish
+
+```bash
+./publish.sh  # Select platform
+```
+
+## License
+
+MIT
 
