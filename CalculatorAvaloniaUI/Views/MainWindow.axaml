@@ -1,6 +1,6 @@
 <Window
     Background="#1E1E1E"
-    Icon="/Assets/avalonia-logo.ico"
+    Icon="/Assets/icons8-calculator.png"
     MaxHeight="550"
     MaxWidth="350"
     MinHeight="550"
