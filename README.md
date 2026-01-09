@@ -4,7 +4,8 @@
 
 A simple, cross-platform calculator built with Avalonia UI.
 
-<img width="350" alt="Calculator Screenshot" src="https://github.com/user-attachments/assets/cf1da2e3-c093-45dd-89fa-1230c5329fc7" />
+<img width="350" alt="calculator screenshot" src="https://github.com/user-attachments/assets/5a4ba84f-73d1-4bd4-93e9-8d3570cfc3c3" />
+
 
 ## Features
 
