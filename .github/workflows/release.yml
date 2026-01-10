@@ -38,7 +38,6 @@ jobs:
           |----------|------|
           | Linux x64 | `CalculatorAvaloniaUI-linux-x64.tar.gz` |
           | Windows x64 | `CalculatorAvaloniaUI-win-x64.zip` |
-          | Windows x64 (Compatible) | `CalculatorAvaloniaUI-win-x64-compatible.zip` |
           | macOS x64 | `CalculatorAvaloniaUI-osx-x64.tar.gz` |
           | macOS ARM64 | `CalculatorAvaloniaUI-osx-arm64.tar.gz` |
           
@@ -52,8 +51,6 @@ jobs:
           
           #### Windows
           Extract the zip and run `CalculatorAvaloniaUI.exe`
-          
-          > **Note:** If the standard build doesn't work, try the "Compatible" version which works better on older Windows 10 systems.
           
           #### macOS
           ```bash
@@ -124,7 +121,7 @@ jobs:
           --self-contained true `
           -p:PublishSingleFile=true `
           -p:PublishTrimmed=true `
-          -p:PublishAot=true `
+          -p:PublishAot=false `
           -o publish/win-x64
     
     - name: Copy assets and create archive
@@ -140,45 +137,6 @@ jobs:
         upload_url: ${{ needs.create-release.outputs.upload_url }}
         asset_path: publish/win-x64/CalculatorAvaloniaUI-win-x64.zip
         asset_name: CalculatorAvaloniaUI-win-x64.zip
-        asset_content_type: application/zip
-
-  build-windows-compatible:
-    needs: create-release
-    runs-on: windows-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 10.0.x
-    
-    - name: Publish Windows x64 (Compatible - No AOT)
-      run: |
-        dotnet publish src/CalculatorAvaloniaUI/CalculatorAvaloniaUI.csproj `
-          -c Release `
-          -r win-x64 `
-          --self-contained true `
-          -p:PublishSingleFile=true `
-          -p:PublishTrimmed=true `
-          -p:PublishAot=false `
-          -o publish/win-x64-compatible
-    
-    - name: Copy assets and create archive
-      run: |
-        Copy-Item src/CalculatorAvaloniaUI/Assets/icons8-calculator.png publish/win-x64-compatible/ -ErrorAction SilentlyContinue
-        Compress-Archive -Path publish/win-x64-compatible/CalculatorAvaloniaUI.exe, publish/win-x64-compatible/*.png -DestinationPath publish/win-x64-compatible/CalculatorAvaloniaUI-win-x64-compatible.zip -Force
-    
-    - name: Upload Windows Compatible Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ needs.create-release.outputs.upload_url }}
-        asset_path: publish/win-x64-compatible/CalculatorAvaloniaUI-win-x64-compatible.zip
-        asset_name: CalculatorAvaloniaUI-win-x64-compatible.zip
         asset_content_type: application/zip
 
   build-macos-x64:
