@@ -21,12 +21,13 @@ mkdir -p $OUTPUT_DIR
 
 echo -e "${BLUE}Select platform to publish:${NC}"
 echo "1) Linux (x64)"
-echo "2) Windows (x64)"
-echo "3) macOS (x64)"
-echo "4) macOS (ARM64)"
-echo "5) All platforms"
+echo "2) Windows (x64) - AOT (requires Windows build machine)"
+echo "3) Windows (x64) - No AOT (cross-compile compatible, more reliable)"
+echo "4) macOS (x64)"
+echo "5) macOS (ARM64)"
+echo "6) All platforms"
 echo ""
-read -p "Enter choice [1-5]: " choice
+read -p "Enter choice [1-6]: " choice
 
 publish_linux() {
     echo -e "${GREEN}Publishing for Linux x64...${NC}"
@@ -62,7 +63,8 @@ publish_linux() {
 }
 
 publish_windows() {
-    echo -e "${GREEN}Publishing for Windows x64...${NC}"
+    echo -e "${GREEN}Publishing for Windows x64 (AOT)...${NC}"
+    echo -e "${YELLOW}⚠ Note: AOT builds require native Windows toolchain. Cross-compiling from Linux may fail.${NC}"
     dotnet publish $PROJECT_DIR/CalculatorAvaloniaUI.csproj \
         -c Release \
         -r win-x64 \
@@ -90,6 +92,38 @@ publish_windows() {
         echo -e "Output: $OUTPUT_DIR/win-x64/"
     else
         echo -e "${YELLOW}⚠ Windows build failed${NC}"
+    fi
+}
+
+publish_windows_no_aot() {
+    echo -e "${GREEN}Publishing for Windows x64 (No AOT - More Compatible)...${NC}"
+    dotnet publish $PROJECT_DIR/CalculatorAvaloniaUI.csproj \
+        -c Release \
+        -r win-x64 \
+        --self-contained true \
+        -p:PublishSingleFile=true \
+        -p:PublishTrimmed=true \
+        -p:PublishAot=false \
+        -o $OUTPUT_DIR/win-x64-noaot
+    
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✓ Windows (No AOT) build completed!${NC}"
+        
+        # Copy assets to output directory
+        echo -e "${BLUE}Copying assets...${NC}"
+        cp $PROJECT_DIR/Assets/icons8-calculator.png $OUTPUT_DIR/win-x64-noaot/ 2>/dev/null || true
+        
+        # Create distributable archive
+        echo -e "${BLUE}Creating distributable archive...${NC}"
+        cd $OUTPUT_DIR/win-x64-noaot
+        zip -q CalculatorAvaloniaUI-win-x64-noaot.zip CalculatorAvaloniaUI.exe *.png 2>/dev/null || \
+        zip -q CalculatorAvaloniaUI-win-x64-noaot.zip CalculatorAvaloniaUI.exe
+        cd ../..
+        
+        echo -e "${GREEN}✓ Archive created: $OUTPUT_DIR/win-x64-noaot/CalculatorAvaloniaUI-win-x64-noaot.zip${NC}"
+        echo -e "Output: $OUTPUT_DIR/win-x64-noaot/"
+    else
+        echo -e "${YELLOW}⚠ Windows (No AOT) build failed${NC}"
     fi
 }
 
@@ -165,17 +199,20 @@ case $choice in
         publish_windows
         ;;
     3)
-        publish_macos_x64
+        publish_windows_no_aot
         ;;
     4)
-        publish_macos_arm64
+        publish_macos_x64
         ;;
     5)
+        publish_macos_arm64
+        ;;
+    6)
         echo -e "${BLUE}Publishing for all platforms...${NC}"
         echo ""
         publish_linux
         echo ""
-        publish_windows
+        publish_windows_no_aot
         echo ""
         publish_macos_x64
         echo ""
