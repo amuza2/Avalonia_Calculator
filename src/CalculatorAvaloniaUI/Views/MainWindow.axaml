@@ -1,7 +1,11 @@
 <Window
     Background="#1E1E1E"
     CanResize="False"
-    Height="550"
+    ExtendClientAreaChromeHints="NoChrome"
+    ExtendClientAreaToDecorationsHint="True"
+    ExtendClientAreaTitleBarHeightHint="35"
+    Height="600"
+    SystemDecorations="None"
     Icon="/Assets/icons8-calculator.png"
     Title="CalculatorAvaloniaUI"
     Width="350"
@@ -87,7 +91,74 @@
             Gesture="NumPad9" />
     </Window.KeyBindings>
 
-    <Grid Margin="15" RowDefinitions="160,*">
+    <Grid RowDefinitions="35,*">
+        <!--  Custom Title Bar  -->
+        <Grid
+            Background="#1E1E1E"
+            ColumnDefinitions="Auto,*,Auto,Auto"
+            Grid.Row="0"
+            PointerPressed="TitleBar_PointerPressed">
+            <!--  App Icon  -->
+            <Image
+                Grid.Column="0"
+                Height="16"
+                Margin="10,0,5,0"
+                Source="/Assets/icons8-calculator.png"
+                VerticalAlignment="Center"
+                Width="16" />
+            <!--  Title (draggable area)  -->
+            <TextBlock
+                FontSize="12"
+                Foreground="#AAAAAA"
+                Grid.Column="1"
+                Text="Calculator"
+                VerticalAlignment="Center" />
+            <!--  Minimize Button  -->
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                Click="MinimizeButton_Click"
+                CornerRadius="0"
+                Grid.Column="2"
+                Height="35"
+                Name="MinimizeButton"
+                Width="45">
+                <Button.Styles>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#3A3A3A" />
+                    </Style>
+                </Button.Styles>
+                <TextBlock
+                    FontSize="14"
+                    Foreground="#AAAAAA"
+                    Text="─"
+                    VerticalAlignment="Center" />
+            </Button>
+            <!--  Close Button  -->
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                Click="CloseButton_Click"
+                CornerRadius="0"
+                Grid.Column="3"
+                Height="35"
+                Name="CloseButton"
+                Width="45">
+                <Button.Styles>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="#E81123" />
+                    </Style>
+                </Button.Styles>
+                <TextBlock
+                    FontSize="14"
+                    Foreground="#AAAAAA"
+                    Text="✕"
+                    VerticalAlignment="Center" />
+            </Button>
+        </Grid>
+
+        <!--  Main Content  -->
+        <Grid Grid.Row="1" Margin="15" RowDefinitions="160,*">
 
         <!--  Display Section  -->
         <Border
@@ -302,6 +373,7 @@
                 Content="="
                 Grid.Column="3"
                 Grid.Row="5" />
+        </Grid>
         </Grid>
     </Grid>
 
